@@ -74,6 +74,36 @@
       padding: 10px;
       transition: color 0.3s ease 0.2s;
     }
+    .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+    .menu-toggle div {
+            width: 25px;
+            height: 3px;
+            background: rgb(19, 97, 186);
+            margin: 5px;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #ffffff;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                text-align: center;
+                color: #007BFF;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+        }
     /* Hero Section with Parallax Background Image */
     .hero {
       height: 100vh;
@@ -399,8 +429,8 @@
 </head>
 <body>
   <!-- Navbar -->
-  <nav>
-    <ul>
+  <nav class="navbar">
+    <ul class="nav-links">
       <li><a href="#home" data-aos="fade-down">Home</a></li>
       <li><a href="#about" data-aos="fade-down" data-aos-delay="100">About</a></li>
       <li><a href="#skills" data-aos="fade-down" data-aos-delay="200">Skills</a></li>
@@ -408,13 +438,18 @@
       <li><a href="#experience" data-aos="fade-down" data-aos-delay="400">Experience</a></li>
       <li><a href="#contact" data-aos="fade-down" data-aos-delay="500">Contact</a></li>
     </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   </nav>
   <!-- Hero Section -->
   <section class="hero" id="home">
     <div class="content" data-aos="fade-up">
       <h1>Hello, I'm Tinoj Thomas</h1>
       <p>Creative Engineering Student &amp; Aspiring Graphic Designer</p>
-      <a href="Resume.pdf" download>Resume</a>
+      <a href="resume.pdf" download>Resume</a>
     </div>
   </section>
   <!-- About Section -->
@@ -549,6 +584,13 @@
   <footer>
     <p>&copy; 2025 Tinoj Thomas. All rights reserved.</p>
   </footer>
+  <script>
+    function toggleMenu() {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.toggle('active');
+    }
+  </script> 
+
   <!-- AOS JS for Animations -->
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
