@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tinoj Thomas C - Portfolio</title>
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- AOS CSS for Animations -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <style>
+    :root {
+      --primary: #007BFF;
+      --hover-color: #0056b3;
+      --bg-color: #fff;
+      --text-color: #333;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      position: relative;
+      overflow-x: hidden;
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    /* Blurred Gradient Shapes Background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0,123,255,0.2), transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(255,126,121,0.2), transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(0,255,204,0.2), transparent 70%);
+      filter: blur(80px);
+      z-index: -1;
+    }
+    a {
+      text-decoration: none;
+      color: var(--text-color);
+      transition: color 0.3s ease 0.2s;
+    }
+    a:hover {
+      color: var(--primary);
+    }
+    /* Navbar - Horizontal with thin font */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--bg-color);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 10px 50px;
+      z-index: 1000;
+      font-weight: 300;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+    }
+    nav ul li {
+      margin: 0 20px;
+    }
+    nav ul li a {
+      padding: 10px;
+      transition: color 0.3s ease 0.2s;
+    }
+    .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+    .menu-toggle div {
+            width: 25px;
+            height: 3px;
+            background: rgb(19, 97, 186);
+            margin: 5px;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #ffffff;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                text-align: center;
+                color: #007BFF;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+        }
+    /* Hero Section with Parallax Background Image */
+    .hero {
+      height: 100vh;
+      background-image: url('background');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.3);
+    }
+    .hero .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .hero .content h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+    .hero .content p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    .hero .content a {
+      padding: 10px 20px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 30px;
+      transition: background 0.3s ease 0.2s;
+    }
+    .hero .content a:hover {
+      background: var(--hover-color);
+    }
+    /* Section Styling */
+    section {
+      padding: 80px 50px;
+    }
+    section h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      position: relative;
+    }
+    section h2::after {
+      content: '';
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+      display: block;
+      margin: 10px auto;
+    }
+    /* About Section */
+    .about {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+    .about .profile-img {
+      flex: 1 1 300px;
+      text-align: center;
+      padding: 20px;
+    }
+    .about .profile-img img {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid var(--primary);
+      transition: transform 0.3s ease 0.2s;
+    }
+    .about .profile-img img:hover {
+      transform: scale(1.05);
+    }
+    .about .content {
+      flex: 2 1 400px;
+      padding: 20px;
+    }
+    /* Skills Section - Tiles without Background */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .skill {
+      flex: 1 1 200px;
+      margin: 20px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease 0.2s, box-shadow 0.3s ease 0.2s;
+      background: transparent;
+      border: none;
+    }
+    .skill:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    .skill h3 {
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+    .skill h3 i {
+      margin-right: 8px;
+    }
+    /* Full–Width Image Slider showing multiple images */
+    .slider {
+      position: relative;
+      overflow: hidden;
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      height: 60vh;
+    }
+    .slides {
+      display: flex;
+      transition: transform 1s ease;
+    }
+    .slide {
+      flex: 0 0 calc(100% / 3);
+      height: 60vh;
+      position: relative;
+      padding: 5px;
+    }
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease 0.2s;
+      border-radius: 5px;
+    }
+    .slide img:hover {
+      transform: scale(1.05);
+    }
+    .slider .prev, .slider .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      color: var(--text-color);
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background 0.3s ease 0.2s;
+    }
+    .slider .prev { left: 20px; }
+    .slider .next { right: 20px; }
+    .slider .prev:hover, .slider .next:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+    /* Experience Roadmap */
+    .timeline {
+      position: relative;
+      padding: 20px 0;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--primary);
+      transform: translateX(-50%);
+    }
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 20px 40px;
+      box-sizing: border-box;
+      transition: transform 0.3s ease 0.2s, box-shadow 0.3s ease 0.2s;
+    }
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      text-align: right;
+    }
+    .timeline-item:nth-child(even) {
+      left: 50%;
+      text-align: left;
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      width: 20px;
+      height: 20px;
+      background: var(--bg-color);
+      border: 4px solid var(--primary);
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .timeline-item:nth-child(odd)::before {
+      right: -10px;
+    }
+    .timeline-item:nth-child(even)::before {
+      left: -10px;
+    }
+    .timeline-content {
+      padding: 20px;
+      transition: transform 0.3s ease 0.2s, box-shadow 0.3s ease 0.2s;
+    }
+    .timeline-content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .timeline-content h3 {
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+    .timeline-content span {
+      font-size: 0.9rem;
+      color: #777;
+    }
+    /* Contact Section - Transparent Form with Two-Column Layout */
+    .contact {
+      text-align: center;
+      padding: 40px 50px;
+    }
+    .contact form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      background: transparent;
+      padding: 20px;
+      border-radius: 10px;
+      /* No border or shadow for transparency */
+    }
+    .contact .contact-columns {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+    .contact .contact-left,
+    .contact .contact-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .contact form input,
+    .contact form textarea {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease 0.2s;
+      background: transparent;
+      color: var(--text-color);
+    }
+    .contact form input:focus,
+    .contact form textarea:focus {
+      border-color: var(--primary);
+    }
+    .contact form button {
+      padding: 10px;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease 0.2s;
+      font-size: 1rem;
+    }
+    .contact form button:hover {
+      background: var(--hover-color);
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #f1f1f1;
+    }
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      nav {
+        padding: 10px 20px;
+      }
+      nav ul {
+        flex-direction: column;
+      }
+      nav ul li {
+        margin: 10px 0;
+      }
+      .about {
+        flex-direction: column;
+      }
+      .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        text-align: left;
+        padding-left: 60px;
+        margin-bottom: 30px;
+      }
+      .timeline-item::before {
+        left: 20px !important;
+      }
+      .timeline::before {
+        left: 30px;
+      }
+      .slider {
+        margin-left: 0;
+        width: 100%;
+      }
+      .slide {
+        flex: 0 0 calc(100% / 2);
+      }
+      .contact .contact-columns {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a href="#home" data-aos="fade-down">Home</a></li>
+      <li><a href="#about" data-aos="fade-down" data-aos-delay="100">About</a></li>
+      <li><a href="#skills" data-aos="fade-down" data-aos-delay="200">Skills</a></li>
+      <li><a href="#portfolio" data-aos="fade-down" data-aos-delay="300">Portfolio</a></li>
+      <li><a href="#experience" data-aos="fade-down" data-aos-delay="400">Experience</a></li>
+      <li><a href="#contact" data-aos="fade-down" data-aos-delay="500">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="content" data-aos="fade-up">
+      <h1>Hello, I'm Tinoj Thomas</h1>
+      <p>Creative Engineering Student &amp; Aspiring Graphic Designer</p>
+      <a href="resume.pdf" download>Resume</a>
+    </div>
+  </section>
+  <!-- About Section -->
+  <section id="about" data-aos="fade-up">
+    <h2>About Me</h2>
+    <div class="about">
+      <div class="profile-img" data-aos="fade-right">
+        <img src="ProfilePicture.png" alt="Profile Picture" />
+      </div>
+      <div class="content" data-aos="fade-left">
+        <p>
+          I am Tinoj Thomas C, an aspiring graphic designer with over 5 years of experience in graphic design, UI design, and motion graphics. My passion lies in creating engaging designs, impactful marketing materials, and brand identities that truly resonate with audiences.
+        </p>
+        <p>
+          Currently pursuing a Bachelor of Technology at NSS College Of Engineering, Palakkad, I am proficient in Figma, Canva, Adobe After Effects, Adobe Illustrator, and Adobe Photoshop.
+        </p>
+      </div>
+    </div>
+  </section>
+  <!-- Skills Section -->
+  <section id="skills" data-aos="fade-up">
+    <h2>Skills &amp; Tools</h2>
+    <div class="skills">
+      <div class="skill" data-aos="zoom-in">
+        <h3><i class="fas fa-paint-brush"></i> Design</h3>
+        <p>Poster, Logo, UI, Motion Graphics</p>
+      </div>
+      <div class="skill" data-aos="zoom-in" data-aos-delay="100">
+        <h3><i class="fas fa-laptop-code"></i> Software</h3>
+        <p>Figma, Canva, After Effects, Illustrator, Photoshop</p>
+      </div>
+      <div class="skill" data-aos="zoom-in" data-aos-delay="200">
+        <h3><i class="fas fa-language"></i> Languages</h3>
+        <p>English, Hindi, Malayalam</p>
+      </div>
+      <div class="skill" data-aos="zoom-in" data-aos-delay="300">
+        <h3><i class="fas fa-gamepad"></i> Hobbies</h3>
+        <p>Gaming, Photography, Trekking</p>
+      </div>
+    </div>
+  </section>
+  <!-- Portfolio Section with Full–Width Image Slider -->
+  <section id="portfolio" data-aos="fade-up">
+    <h2>Portfolio</h2>
+    <div class="slider" id="slider">
+      <div class="slides">
+        <div class="slide"><img src="Award_call_3.png" alt="Award Call" /></div>
+        <div class="slide"><img src="EV Designing_04.png" alt="EV Designing" /></div>
+        <div class="slide"><img src="Frame It_Ext.png" alt="Frame It" /></div>
+        <div class="slide"><img src="Intro To Ai_07.png" alt="Intro To AI" /></div>
+        <div class="slide"><img src="Main Poster_05.png" alt="Main Poster" /></div>
+        <div class="slide"><img src="Main Poster_Sq.png" alt="Main Poster Square" /></div>
+        <div class="slide"><img src="Navigating Your Career Path.png" alt="Navigating Your Career Path" /></div>
+        <div class="slide"><img src="SkillUp_Coming_Soon.png" alt="SkillUp Coming Soon" /></div>
+        <div class="slide"><img src="Uplift_Main.png" alt="Uplift Main" /></div>
+        <div class="slide"><img src="Inaguration_03.png" alt="Inaguration_03" /></div>
+        <div class="slide"><img src="4 Days To Go N'23.png" alt="4 Days To Go N'23" /></div>
+        <div class="slide"><img src="TKM_02.png" alt="TKM 02" /></div>
+        <div class="slide"><img src="5 Days To Go N'24.png" alt="5 Days To Go N'24" /></div>
+        <div class="slide"><img src="EVERITE BATTERY_02.png" alt="EVERITE BATTERY_02" /></div>
+      </div>
+      <button class="prev" onclick="prevSlide()">&#10094;</button>
+      <button class="next" onclick="nextSlide()">&#10095;</button>
+    </div>
+  </section>
+  <!-- Experience Roadmap Section -->
+  <section id="experience" data-aos="fade-up">
+    <h2>Experience Roadmap</h2>
+    <div class="timeline">
+      <div class="timeline-item" data-aos="fade-up">
+        <div class="timeline-content">
+          <h3>Media Head, IEEE VTS, Kerala Chapter</h3>
+          <span>January 2024 - Present</span>
+          <p>Leading media and branding initiatives ensuring effective communication and visual consistency.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-aos="fade-up">
+        <div class="timeline-content">
+          <h3>Design Lead, IEEE SB NSSCE, Palakkad</h3>
+          <span>January 2025 - Present</span>
+          <p>Leading design projects and ensuring quality visual outputs for event branding.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-aos="fade-up">
+        <div class="timeline-content">
+          <h3>Former Media Head, IEEE SB NSSCE, Palakkad</h3>
+          <span>January 2024 - January 2025</span>
+          <p>Created impactful promotional content and managed social media for event visibility.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-aos="fade-up">
+        <div class="timeline-content">
+          <h3>Former Designer, IEEE Education Society, Kerala Chapter</h3>
+          <span>January 2024 - January 2025</span>
+          <p>Enhanced the chapter’s visual presence with creative promotional materials.</p>
+        </div>
+      </div>
+      <div class="timeline-item" data-aos="fade-up">
+        <div class="timeline-content">
+          <h3>Freelance Designer, Oak Street Event Company, Thrissur</h3>
+          <span>July 2020 - February 2022</span>
+          <p>Designed promotional materials and edited multimedia content contributing to successful events.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Contact Section with Transparent Form and Two-Column Layout -->
+  <section id="contact" data-aos="fade-up">
+    <h2>Contact Me</h2>
+    <div class="contact">
+      <form action="mailto:tinojcthomas@gmail.com" method="post" enctype="text/plain">
+        <div class="contact-columns">
+          <div class="contact-left">
+            <input type="text" name="name" placeholder="Your Name" required />
+            <input type="email" name="email" placeholder="Your Email" required />
+          </div>
+          <div class="contact-right">
+            <textarea name="message" rows="8" placeholder="Your Message" required></textarea>
+          </div>
+        </div>
+        <button type="submit">Send Message</button>
+      </form>
+      <p style="text-align: center; margin-top: 20px;">
+        Alternatively, reach me at:<br />
+        <strong>Email:</strong> tinojcthomas@gmail.com<br />
+        <strong>Phone:</strong> +91 80783 96233<br />
+        <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/tinojthomas" target="_blank">Tinoj Thomas C</a>
+      </p>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Tinoj Thomas. All rights reserved.</p>
+  </footer>
+  <script>
+    function toggleMenu() {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.toggle('active');
+    }
+  </script> 
+
+  <!-- AOS JS for Animations -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+    
+    // Smooth Scroll for Anchor Links (in addition to CSS scroll-behavior)
+    document.querySelectorAll('nav ul li a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Slider Functionality for Multiple Visible Slides
+    let slideIndex = 0;
+    const slides = document.querySelector('.slides');
+    const totalSlides = document.querySelectorAll('.slide').length;
+    const visibleSlides = 3; // Change to 2 for mobile if needed
+    function showSlide(index) {
+      if(index > totalSlides - visibleSlides) { slideIndex = 0; }
+      else if(index < 0) { slideIndex = totalSlides - visibleSlides; }
+      else { slideIndex = index; }
+      slides.style.transform = 'translateX(' + (-slideIndex * (100 / visibleSlides)) + '%)';
+    }
+    function nextSlide() { showSlide(slideIndex + 1); }
+    function prevSlide() { showSlide(slideIndex - 1); }
+    setInterval(nextSlide, 5000);
+  </script>
+</body>
+</html>
