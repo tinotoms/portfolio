@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      margin: 0;
+      padding: 50px;
+      background: #f0f0f0;
+      font-family: sans-serif;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: center;
+      gap: 0; /* we'll control overlap manually */
+      position: relative;
+    }
+
+    .card {
+      width: 250px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+      margin-left: -60px; /* creates overlap */
+      transition: transform 0.3s, z-index 0.3s;
+    }
+
+    .card:first-child {
+      margin-left: 0; /* no overlap for the first card */
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      z-index: 10; /* bring to front on hover */
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .card h3 {
+      margin: 15px 0 10px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .card button {
+      margin-top: 15px;
+      padding: 8px 15px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .card button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card-container">
+  <div class="card">
+    <img src="https://via.placeholder.com/250x150" alt="Image 1">
+    <h3>Card One</h3>
+    <p>This is the first card's description.</p>
+    <button>Click Me</button>
+  </div>
+  <div class="card">
+    <img src="https://via.placeholder.com/250x150" alt="Image 2">
+    <h3>Card Two</h3>
+    <p>This is the second card's description.</p>
+    <button>Click Me</button>
+  </div>
+  <div class="card">
+    <img src="https://via.placeholder.com/250x150" alt="Image 3">
+    <h3>Card Three</h3>
+    <p>This is the third card's description.</p>
+    <button>Click Me</button>
+  </div>
+  <div class="card">
+    <img src="https://via.placeholder.com/250x150" alt="Image 4">
+    <h3>Card Four</h3>
+    <p>This is the fourth card's description.</p>
+    <button>Click Me</button>
+  </div>
+</div>
+
+</body>
+</html>
