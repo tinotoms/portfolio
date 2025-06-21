@@ -64,6 +64,7 @@ body {
   font-weight: 300;
   font-style: normal;
   letter-spacing: 4px;
+  padding-inline: 5px;
 }
 
 .btn_01 {
@@ -469,7 +470,10 @@ div#top.card:hover {
   width: 100vw;
   background-color: #2d2d2d;
   margin: 0;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: #fff;
   overflow: hidden;
   padding: 3% 0;
@@ -680,7 +684,6 @@ div#top.card:hover {
   .btn_01,
   .btn_02 {
     font-size: 11px;
-    font-weight: bold;
     padding: 6px 10px;
   }
 
@@ -753,7 +756,7 @@ div#top.card:hover {
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 550px) {
   body {
     padding: 0;
   }
@@ -871,7 +874,6 @@ div#top.card:hover {
   }
 
   .footer {
-    padding:8px;
     font-size: 10px;
     line-height: 1.5;
     width: 100vw;
