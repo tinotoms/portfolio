@@ -10,7 +10,6 @@ body {
   background-color: #f5f5f5;
   margin: 0;
   padding: 0;
-  background-image: url("Background.png");
   background-size: cover;
 }
 
@@ -56,6 +55,7 @@ body {
   text-align: center;
   padding: 34vh 0;
   box-sizing: border-box;
+  margin: 0 100px;
 }
 
 .landing h1 {
@@ -99,6 +99,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 50px;
+  margin: 0 100px;
 }
 
 .title {
@@ -116,6 +117,10 @@ body {
   /*flex-wrap: wrap;*/
   align-items: center;
   gap: 10vw;
+}
+
+.about{
+  margin: 0 100px;
 }
 
 .left-box,
@@ -172,6 +177,7 @@ body {
   padding-top: 10vh;
   box-sizing: border-box;
   text-align: center;
+  margin: 0 100px;
 }
 
 .projects .title {
@@ -244,6 +250,7 @@ div#top.card:hover {
 .skill {
   height: 100vh;
   padding-top: 10vh;
+  margin: 0 100px;
   box-sizing: border-box;
   /*background-color: #ffffff;*/
 }
@@ -341,6 +348,8 @@ div#top.card:hover {
   border-radius: 100px;
   box-shadow: 0px 0px 20px #85858537;
   width: fit-content;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
 }
 
 .test {
@@ -352,6 +361,7 @@ div#top.card:hover {
   justify-content: center;
   align-items: center;
   margin-bottom: 30px;
+  margin: 0 100px;
 }
 
 .test .title {
