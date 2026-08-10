@@ -1,166 +1,485 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Portfolio | tinojthomas</title>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link href="styledv.css" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <div class="navbar">
-            <a href="#"><img src="tinojthomas_blk.png"></a>
-            <div class="progress-container">
-                <div class="progress-bar" id="myBar"></div>
-            </div>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portolio - Tinoj Thomas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F7F8F6;
+    --surface: #FFFFFF;
+    --ink: #14181A;
+    --ink-soft: #5B6460;
+    --accent: #1E7F72;
+    --accent-soft: #E3F1EC;
+    --amber: #D98E2E;
+    --line: rgba(20,24,26,0.09);
+    --shadow: 0 1px 2px rgba(20,24,26,0.04);
+    --shadow-hover: 0 14px 30px rgba(20,24,26,0.09);
+    --radius: 14px;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+  }
+  h1,h2,h3,.display{ font-family:'Space Grotesk', sans-serif; letter-spacing:-0.02em; margin:0; }
+  .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:0.03em; }
+  a{ color:inherit; }
+  .wrap{ max-width:1100px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- global cursor glow (whole page) ---------- */
+  #cursorGlow{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background: radial-gradient(560px 480px at 50% 30%, var(--accent-soft) 0%, rgba(227,241,236,0) 70%);
+    opacity:0.65;
+  }
+  nav, header.hero, section, footer{ position:relative; z-index:1; }
+
+  /* reveal-on-scroll */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+
+  /* ---------- NAV ---------- */
+  nav{ position:sticky; top:0; z-index:50; background:rgba(247,248,246,0.82); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; padding:18px 28px; }
+  .brand{ display:flex; align-items:center; gap:9px; font-weight:600; font-size:16px; }
+  .brand .dot{ width:9px; height:9px; border-radius:50%; background:var(--accent); animation:pulse 2.6s ease-in-out infinite; }
+  .brand-logo{ height:24px; width:auto; display:block; }
+  @keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1);} 50%{ opacity:.45; transform:scale(1.25);} }
+  @media (prefers-reduced-motion: reduce){ .brand .dot{ animation:none; } }
+  .navlinks{ display:flex; gap:30px; font-family:'IBM Plex Mono', monospace; font-size:12.5px; text-transform:uppercase; letter-spacing:0.07em; }
+  .navlinks a{ text-decoration:none; opacity:0.6; transition:opacity .2s; }
+  .navlinks a:hover{ opacity:1; }
+
+  /* ---------- HERO ---------- */
+  header.hero{ padding:120px 0 100px; }
+  .tag{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--accent); border:1px solid var(--line); background:var(--surface);
+    padding:7px 13px; border-radius:100px; box-shadow:var(--shadow);
+  }
+  header.hero h1{ font-size:clamp(2.3rem, 5.4vw, 3.9rem); font-weight:600; line-height:1.08; max-width:16ch; margin-top:26px; }
+  header.hero .lede{ font-size:1.1rem; color:var(--ink-soft); max-width:52ch; margin-top:20px; }
+  .cta-row{ display:flex; gap:14px; margin-top:38px; flex-wrap:wrap; }
+  .btn{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.05em;
+    text-decoration:none; padding:14px 24px; border-radius:100px; display:inline-block;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{ background:var(--ink); color:var(--bg); }
+  .btn-primary:hover{ box-shadow:var(--shadow-hover); }
+  .btn-ghost{ border:1px solid var(--line); background:var(--surface); }
+  .btn-ghost:hover{ box-shadow:var(--shadow-hover); }
+
+  /* ---------- SECTION generic ---------- */
+  section{ padding:96px 0; }
+  .section-head{ margin-bottom:46px; max-width:64ch; }
+  .section-tag{ font-family:'IBM Plex Mono', monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.09em; color:var(--accent); display:block; margin-bottom:12px; }
+  .section-head h2{ font-size:clamp(1.6rem, 3vw, 2.15rem); font-weight:600; }
+  .section-head p.sub{ color:var(--ink-soft); margin-top:14px; max-width:60ch; }
+
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px; box-shadow:var(--shadow); transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-hover); }
+  .k{ font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-soft); margin-bottom:10px; display:block; }
+
+  /* ---------- ABOUT — asymmetric two-column, portrait anchor ---------- */
+  .about-grid{ display:grid; grid-template-columns:220px 1fr; gap:56px; align-items:start; }
+
+  .about-side{ position:sticky; top:100px; }
+  .avatar{
+  width:150px; height:150px; border-radius:50%;
+  background:var(--ink); color:var(--bg);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:600;
+  box-shadow:0 0 0 3px var(--bg), 0 0 0 4px var(--line);
+  overflow:hidden;
+}
+  .avatar img{ width:100%; height:100%; object-fit:cover; }
+  .side-facts{ margin-top:28px; display:flex; flex-direction:column; }
+  .side-fact{ padding:16px 0; border-top:1px solid var(--line); }
+  .side-fact:first-child{ padding-top:0; border-top:none; }
+  .side-fact .k{ margin-bottom:6px; }
+  .side-fact strong{ font-family:'Space Grotesk',sans-serif; font-size:1rem; font-weight:600; display:block; }
+  .side-fact span.detail{ font-size:0.85rem; color:var(--ink-soft); }
+  .progress-track{ height:5px; background:var(--line); border-radius:100px; margin-top:10px; overflow:hidden; width:100%; }
+  .progress-fill{ height:100%; width:0%; background:var(--accent); border-radius:100px; transition:width 1.1s ease .2s; }
+  .progress-fill.in{ width:40%; }
+
+  .about-lede{
+    font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:1.4rem;
+    line-height:1.4; max-width:26ch; margin-bottom:22px;
+  }
+  .about-body{ max-width:66ch; font-size:1.03rem; color:var(--ink-soft); }
+
+  .honest-note{
+    margin-top:32px; padding:22px 26px; border-left:3px solid var(--accent);
+    background:var(--accent-soft); border-radius:0 10px 10px 0; max-width:66ch;
+  }
+  .honest-note p{ margin:0; color:#1a3d37; }
+
+  @media (max-width: 760px){
+    .about-grid{ grid-template-columns:1fr; }
+    .about-side{ position:static; display:flex; align-items:center; gap:20px; }
+    .side-facts{ margin-top:0; flex:1; }
+  }
+
+  /* ---------- CASE STUDY — vertical timeline ---------- */
+  .status-row{ display:flex; align-items:center; gap:10px; margin-top:16px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft); }
+  .status-dot{ width:8px; height:8px; border-radius:50%; background:var(--amber); animation:pulse 2.4s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce){ .status-dot{ animation:none; } }
+
+  .timeline{ margin-top:20px; }
+  .t-step{ display:grid; grid-template-columns:52px 1fr; gap:26px; }
+  .t-marker{ display:flex; flex-direction:column; align-items:center; }
+  .t-num{
+    width:34px; height:34px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace; font-size:12px;
+    border:1px solid var(--line); background:var(--surface); color:var(--ink-soft);
+  }
+  .t-step.complete .t-num{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .t-line{ width:1px; flex:1; background:var(--line); margin-top:6px; min-height:24px; }
+  .t-step:last-child .t-line{ display:none; }
+  .t-content{ padding-bottom:36px; }
+  .t-head{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .t-head h3{ font-size:1.05rem; font-weight:600; }
+  .t-state{ font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft); border:1px solid var(--line); padding:3px 9px; border-radius:100px; }
+  .t-step.complete .t-state{ color:var(--accent); border-color:var(--accent); }
+  .t-content p{ margin-top:10px; color:var(--ink-soft); max-width:68ch; }
+
+  .method-row{ display:flex; gap:48px; margin-top:20px; flex-wrap:wrap; }
+  .method-col{ flex:1 1 280px; }
+  .method-col p{ color:var(--ink-soft); margin-top:8px; }
+
+  .persona-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:20px; }
+  .persona-row .card.primary{ box-shadow:0 0 0 2px var(--accent), var(--shadow); }
+  .badge-primary{ display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; background:var(--accent-soft); color:var(--accent); padding:4px 10px; border-radius:100px; margin-bottom:10px; }
+  .persona-row h4{ font-family:'Space Grotesk',sans-serif; font-size:1.1rem; margin:2px 0; }
+  .persona-row .role{ font-size:0.85rem; color:var(--ink-soft); margin-bottom:10px; display:block; }
+  .persona-row p.desc{ font-size:0.92rem; color:var(--ink-soft); margin:0; }
+
+  /* ---------- ENGINEERING — the one intentional grid ---------- */
+  .map-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:16px; }
+  .map-tile .from{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft); }
+  .map-tile .arrow{ margin:8px 0; color:var(--accent); }
+  .map-tile .to{ font-family:'Space Grotesk',sans-serif; font-size:1.05rem; font-weight:600; }
+  .map-tile p{ margin-top:8px; font-size:0.92rem; color:var(--ink-soft); }
+  .stack-chips{ display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+  .stack-chip{ font-family:'IBM Plex Mono',monospace; font-size:12px; background:var(--surface); border:1px solid var(--line); padding:7px 13px; border-radius:100px; }
+
+  /* ---------- SKILLS — simple two-column ---------- */
+  .skills-row{ display:flex; gap:48px; flex-wrap:wrap; }
+  .skills-col{ flex:1 1 280px; }
+  .skills-col p{ color:var(--ink-soft); margin-top:8px; line-height:1.9; }
+
+  /* ---------- CONTACT ---------- */
+  .contact{ text-align:center; }
+  .contact-links{ display:flex; gap:14px; justify-content:center; margin-top:34px; flex-wrap:wrap; }
+
+  footer{ padding:34px 0 50px; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft); }
+
+  @media (max-width: 860px){
+    .about-facts{ flex-direction:column; }
+    .fact{ border-right:none; border-bottom:1px solid var(--line); padding:16px 0; }
+    .fact:last-child{ border-bottom:none; }
+    .persona-row{ grid-template-columns:1fr; }
+    .map-grid{ grid-template-columns:1fr 1fr; }
+    .navlinks{ display:none; }
+  }
+  @media (max-width: 560px){
+    .map-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursorGlow"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><img src="https://media.discordapp.net/attachments/799548161172832286/1536318233571762187/tinojthomas_blk.png?ex=6a7af75a&is=6a79a5da&hm=5cc788a677c70933564d18682c9fc42b8d68ef9d8f687eb7771c22ff19803861&=&format=webp&quality=lossless" alt="Tinoj" class="brand-logo"></div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#case-study">Case Study</a>
+      <a href="#engineering">Engineering</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="hero">
+  <div class="wrap">
+    <span class="tag reveal in">● Early-career · Open to internships &amp; open source</span>
+    <h1 class="reveal in">An engineer, learning to design.</h1>
+    <p class="lede reveal in">I'm Tinoj, an ECE graduate from Kerala building my first UX case study in the open, alongside four years of embedded-systems thinking. No finished portfolio piece yet. Just real process, honestly shown.</p>
+    <div class="cta-row reveal in">
+      <a class="btn btn-primary" href="#case-study">See the process</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">About</span>
+      <h2>Where I'm starting from</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-side reveal">
+        <div class="avatar"> <img src="https://media.discordapp.net/attachments/799548161172832286/1536321098537238598/IMG_20240520_2014507564.jpg?ex=6a7afa05&is=6a79a885&hm=b0f3848aeb9fdbb781042965524ca12a605bd1ed3554a40b3dba6f04938553ed&=&format=webp&width=819&height=1024" alt=""> </div>
+        <div class="side-facts">
+          <div class="side-fact">
+            <span class="k">Based in</span>
+            <strong>Kerala, India</strong>
+          </div>
+          <div class="side-fact">
+            <span class="k">Education</span>
+            <strong>B.Tech ECE</strong>
+            <span class="detail">NSS College of Engineering, Palakkad</span>
+          </div>
+          <div class="side-fact">
+            <span class="k">Google UX Design Certificate</span>
+            <strong>Courses 1–2 complete</strong>
+            <div class="progress-track"><div class="progress-fill" id="certBar"></div></div>
+          </div>
         </div>
+      </div>
 
-        <div class="landing">
-            <h1>Designs That Speak Loudly.<br>Even When They're Quiet.</h1>
-            <a class="btn_01" href="#about">See What I Mean</a>
+      <div class="about-main reveal">
+        <p class="about-lede">Kerala-based, self-taught in UX, and building my design career in public.</p>
+        <p class="about-body">I graduated in Electronics and Communication Engineering from NSS College of Engineering, Palakkad. My final year was spent building and debugging a real embedded IoT system — work that taught me to test assumptions, isolate root causes, and iterate until something actually holds up. I'm now applying that same discipline to product and UX design through the Google UX Design Certificate, one project at a time.</p>
+
+        <div class="honest-note">
+          <p>I don't have a polished, finished case study yet, and I'd rather show you real, in-progress thinking than a fake finished one. Below is exactly where I am.</p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="about" id="about">
-            <h2 class="title">Who’s behind the scroll?</h2>
-            <div class="full-width">
-                <div class="left-box">
-                    <p class="description">I’m a graphic designer with a strong foundation in typography, layout, and visual storytelling. I create clear, functional designs rooted in traditional principles while blending modern UX thinking. My work focuses on clarity, structure, and meaningful communication across branding, interfaces, and content-driven experiences and products.</p>
-                    <ul class="timeline">
-                        <li><a><b>2020</b><br>Started freelance design — product packaging & promos for small businesses.</a></li>
-                        <li><a><b>2024</b><br>Official designer for IEEE EdSoc Kerala Chapter — 30+ works including a 2-day flagship event and monthly talk series.</a></li>
-                        <li><a><b>2025</b><br>Media Head at IEEE VTS Kerala Chapter & design intern at TransEduverse.</a></li>
-                    </ul>
-                    <a href="Resume.pdf" target="_blank"><button class="btn_02">See My Resume</button></a>
-                </div> 
-                <div class="right-box">
-                    <img src="Tinoj Thomas.png">
-                </div>
-            </div>
+<section id="case-study">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">Case Study 01</span>
+      <h2>A public toilet finder for Kerala, designed around women's safety</h2>
+      <p class="sub">Public toilets in Kerala are often hard to find, and harder to trust. Through a survey, empathy mapping, and a defined persona journey, this project traces exactly where that trust breaks down for the people who need it most — and builds toward a value proposition that addresses it directly.</p>
+      <div class="status-row"><span class="status-dot"></span> Research &amp; Define complete · Ideation next</div>
+    </div>
+
+    <div class="timeline">
+      <div class="t-step complete reveal">
+        <div class="t-marker"><div class="t-num">1</div><div class="t-line"></div></div>
+        <div class="t-content">
+          <div class="t-head"><h3>Discover</h3><span class="t-state">Complete</span></div>
+          <p>Primary research through a structured Google Form survey. Synthesized responses into empathy maps to surface what users say, think, feel, and do — and from there, the key pain points driving this problem.</p>
         </div>
-
-        <div class="projects">
-            <h2 class="title">Things I’ve Made. Things I’ve Learned.</h2>
-            <div class="full-width">
-                <div class="card">
-                    <img src="card01.png">
-                    <h4>TransEduverse AI Internship Poster</h4>
-                    <p>A brand-guided promotional ad designed under strict visual constraints while ensuring clarity, hierarchy, and a clean professional look.</p>
-                    <a href="#" target="_blank"><button class="btn_02">Read Process</button></a>
-                </div>
-                <div class="card">
-                    <img src="card02.png">
-                    <h4>IEEE EdSoc Kerala Poster</h4>
-                    <p>A quick-turnaround event poster delivered on short notice, using a playful visual concept to clearly communicate the contest theme.</p>
-                    <a href="#" target="_blank"><button class="btn_02">Read Process</button></a>
-                </div>
-                <div class="card">
-                    <img src="card03.png">
-                    <h4>CircuitNova – IEEE SB NSSCE Poster</h4>
-                    <p>A futuristic, circuit-inspired event poster crafted for IEEE SB NSSCE, focused on strong visual impact and technical appeal.</p>
-                    <a href="#" target="_blank"><button class="btn_02">Read Process</button></a>
-                </div>
-                <div class="card" id="top">
-                    <img src="card04.png">
-                    <h4>Christmas Greeting Poster</h4>
-                    <p>A blended design created by combining AI-generated imagery with my own refinement to produce a warm, atmospheric holiday visual.</p>
-                    <a href="#" target="_blank"><button class="btn_02">Read Process</button></a>
-                </div>
-            </div>
-            <div class="link_01"><a href="#">Want to see more? Let’s talk.</a></div>
+      </div>
+      <div class="t-step complete reveal">
+        <div class="t-marker"><div class="t-num">2</div><div class="t-line"></div></div>
+        <div class="t-content">
+          <div class="t-head"><h3>Define</h3><span class="t-state">Complete</span></div>
+          <p>Built three personas — Niva, Priya, and Umadevi — then defined a problem statement, hypothesis statement, and goal statement for the primary persona, Priya. Mapped her end-to-end journey to pinpoint exactly where trust breaks down, and shaped a value proposition from it.</p>
         </div>
-
-        <div class="skill">
-            <h2 class="title">What I Can Do, and What I’m Learning</h2>
-            <div class="full-width">
-                <div class="left-box">
-                    <div class="subtitle"><h3><u>Tools I Can Reach Blindfolded</u></h3></div>
-                    <div class="skillist">
-                        <div class="li"><img src="Icons_08.png"> <a>Posters & Visual Campaigns</a></div>
-                        <div class="li"><img src="Icons_06.png"> <a>Figma / Photoshop Power Plays</a></div>
-                        <div class="li"><img src="Icons_03.png"> <a>Typography That Hits</a></div>
-                        <div class="li"><img src="Icons_07.png"> <a>Color Theory in Practice</a></div>
-                        <div class="li"><img src="Icons_04.png"> <a>Social Media Design Systems</a></div>
-                    </div>
-                </div>
-                <div class="right-box">
-                    <div class="subtitle"><u><h3 class="subtitle">Stuff I’m Chasing Down</u></h3></div>
-                    <div class="skillist">
-                        <div class="li"><a>Motion Graphics (Shorts & Loops)</a><img src="Icons_09.png"></div>
-                        <div class="li"><a>UI Screen Design</a><img src="Icons_01.png"></a></div>
-                        <div class="li"><a>Using AI Tools for Creative Ideation</a><img src="Icons_02.png"></a></div>
-                        <div class="li"><a>Web Aesthetic Design & Layout Systems</a><img src="Icons_05.png"></a></div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="t-step reveal">
+        <div class="t-marker"><div class="t-num">3</div><div class="t-line"></div></div>
+        <div class="t-content">
+          <div class="t-head"><h3>Ideate</h3><span class="t-state">Next</span></div>
+          <p>Sketching flows and wireframes around the value proposition and journey map's sharpest pain points.</p>
         </div>
-
-        <div class="test">
-            <h2 class="title">What They Said After the Dust Settled</h2>
-            <div class="grid">
-                <div class="testcard" style="grid-area: box1;">
-                    <p id="quote">“He delivered faster than expected — and it still looked amazing. Can’t believe this was done overnight.”</p>
-                    <p id="client">-An Awesome Client</p>
-                </div>
-                <div class="testcard" style="grid-area: box2;">
-                    <p id="quote">“Thanks for doing this even when we were late”</p>
-                    <p id="client">-An Awesome Client</p>
-                </div>
-                <div class="testcard" style="grid-area: box3;">
-                    <p id="quote">“He just gets the vibe. Every poster feels like it belongs to the event before it even happens.”</p>
-                    <p id="client">-An Awesome Client</p>
-                </div>
-                <div class="testcard" style="grid-area: box4;">
-                    <p id="quote">“Handled brand rules like a pro. We gave the content and color palette — the rest was on him, and he nailed it.”</p>
-                    <p id="client">-An Awesome Client</p>
-                </div>
-                <div class="testcard" style="grid-area: box5;">
-                    <p id="quote">“We were stuck last minute, and he pulled through with a solid design that didn’t feel rushed. Life saver.”</p>
-                    <p id="client">-An Awesome Client</p>
-                </div>
-            </div>
+      </div>
+      <div class="t-step reveal">
+        <div class="t-marker"><div class="t-num">4</div></div>
+        <div class="t-content">
+          <div class="t-head"><h3>Prototype</h3><span class="t-state">Upcoming</span></div>
+          <p>A testable mid-fidelity prototype, validated against Priya's real needs.</p>
         </div>
+      </div>
+    </div>
 
-        <!--<div class="contact">
-            <h2 class="title">This Doesn’t Have to End Here</h2>
-            <div class="full-width">
-                <div class="left-box">
-                    <div class="input_data">
-                        <input type="text" name="name" required><label>Name</label>                    
-                    </div>
-                    <div class="input_data">
-                        <input type="text" name="name" required><label>Email</label>                    
-                    </div>
-                    <div class="input_data" id="msg">
-                        <input type="text" name="name" required><label>Message</label>                    
-                    </div>
-                    <div class="submit">
-                        <button class="btn_02">Send</button>
-                    </div>
-                </div>
-                <div class="right-box">
-                    <img src="gradient bg.png" width="80%">
-                </div>
-            </div> 
-        </div>-->
+    <div class="method-row reveal">
+      <div class="method-col">
+        <span class="k">Research method</span>
+        <p>A Google Form survey sent through my personal network, built to surface how women actually decide whether to use — or avoid — a public toilet in Kerala.</p>
+      </div>
+      <div class="method-col">
+        <span class="k">Analysis approach</span>
+        <p>Synthesized the survey responses into empathy maps for each participant — mapping what they say, think, feel, and do. That surfaced a clear set of pain points, which shaped the three personas and the journey map that followed for the primary persona.</p>
+      </div>
+    </div>
 
-        <div class="footer">
-            <p class="rights">© 2025 Tino Thomas. All visuals are mine. So is the hustle.</p>
-            <p class="bonous">P.S. If you made it this far, here’s a thank-you wallpaper. <a href="Malampuzha Dam.png">Download It</a> </p>
-        </div>
-    </body>
+    <div class="persona-row">
+      <div class="card primary reveal">
+        <span class="badge-primary">Primary persona</span>
+        <h4>Priya</h4>
+        <span class="role">Working mother</span>
+        <p class="desc">Navigates public space with a child in tow. Needs to trust a toilet's safety and cleanliness before she'll use it — for herself and her child.</p>
+      </div>
+      <div class="card reveal">
+        <span class="k">Secondary persona</span>
+        <h4>Niva</h4>
+        <span class="role">Young, solo user</span>
+        <p class="desc">Travels alone and wants to verify cleanliness and safety before walking in, often with no one to ask.</p>
+      </div>
+      <div class="card reveal">
+        <span class="k">Persona</span>
+        <h4>Umadevi</h4>
+        <span class="role">Age 50 · Office clerk, Palakkad</span>
+        <p class="desc">Restricts water intake to avoid needing a public toilet — a habit that led to a urinary infection. Her case reframed this as a health and safety problem, not a convenience one.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<section id="engineering">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">Case Study 02 · B.Tech Final-Year Project</span>
+      <h2>PowerGuard Monitor, reframed through a design lens</h2>
+      <p class="sub">Before I had a UX case study, I had this: a real-time power monitoring system I built, debugged, and presented to an academic examiner. I didn't call any of it "design" at the time — but looking back, almost every technical decision was a design decision.</p>
+    </div>
 
-    <script>
-        window.onscroll = function() {myFunction()};
-        function myFunction() {
-            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            var scrolled = (winScroll / height) * 100;
-            document.getElementById("myBar").style.width = scrolled + "%";
-        } 
-    </script>
+    <div class="map-grid">
+      <div class="card map-tile reveal">
+        <span class="from mono">Root-cause debugging</span>
+        <div class="arrow">↓</div>
+        <div class="to">Usability diagnosis</div>
+        <p>Traced intermittent sensor failures to WiFi/scheduler interference — isolating one variable at a time, the same discipline usability testing demands.</p>
+      </div>
+      <div class="card map-tile reveal">
+        <span class="from mono">Real-time dashboard build</span>
+        <div class="arrow">↓</div>
+        <div class="to">Data visualization</div>
+        <p>Built a live Chart.js dashboard translating raw sensor readings into something a non-technical person could read at a glance.</p>
+      </div>
+      <div class="card map-tile reveal">
+        <span class="from mono">Telegram bot alerts</span>
+        <div class="arrow">↓</div>
+        <div class="to">Notification design</div>
+        <p>Chose the channel and moment a person would actually notice an alert — the core question behind any notification system.</p>
+      </div>
+      <div class="card map-tile reveal">
+        <span class="from mono">Relay state-machine logic</span>
+        <div class="arrow">↓</div>
+        <div class="to">User flow design</div>
+        <p>Rewrote faulty state logic after finding a polarity bug — mapping every possible state the same way a flow diagram maps every screen.</p>
+      </div>
+      <div class="card map-tile reveal">
+        <span class="from mono">Swapping a failing component</span>
+        <div class="arrow">↓</div>
+        <div class="to">Iterating under constraints</div>
+        <p>Migrated display libraries mid-project and diagnosed a faulty sensor by elimination — shipping despite the constraints, not around them.</p>
+      </div>
+      <div class="card map-tile reveal">
+        <span class="from mono">Examiner presentation</span>
+        <div class="arrow">↓</div>
+        <div class="to">Stakeholder communication</div>
+        <p>Defended every design decision out loud, to someone with no context — the same skill a design review demands.</p>
+      </div>
+    </div>
+
+    <div class="stack-chips reveal">
+      <span class="stack-chip">ESP32</span>
+      <span class="stack-chip">PZEM-004T</span>
+      <span class="stack-chip">FreeRTOS</span>
+      <span class="stack-chip">MQTT</span>
+      <span class="stack-chip">Telegram Bot API</span>
+      <span class="stack-chip">Chart.js Dashboard</span>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">Toolkit</span>
+      <h2>What I bring to a team</h2>
+    </div>
+    <div class="skills-row reveal">
+      <div class="skills-col">
+        <span class="k">UX &amp; Product</span>
+        <p>User research &amp; survey design · Empathy mapping · Persona development · Problem framing &amp; synthesis · Journey mapping · Wireframing &amp; prototyping (in progress via Google UX Design Certificate)</p>
+      </div>
+      <div class="skills-col">
+        <span class="k">Engineering &amp; Systems</span>
+        <p>Embedded systems &amp; IoT (ESP32, sensors, RTOS) · Systematic debugging &amp; root-cause analysis · End-to-end builds, hardware to dashboard · Technical documentation</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="section-tag" style="display:inline-block;">Get in touch</span>
+      <h2>Open to internships and open-source collaborations</h2>
+      <p class="sub" style="margin-left:auto; margin-right:auto;">I'm early in this transition and looking for a team willing to invest in that — in exchange for someone who debugs relentlessly and designs honestly.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:your.email@example.com">your.email@example.com</a>
+        <a class="btn btn-ghost" href="https://linkedin.com/in/your-handle" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-ghost" href="https://github.com/your-handle" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Tinoj · Built with intent, not templates.</footer>
+
+<script>
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal:not(.in)');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // cert progress bar animates once visible
+  const certTile = document.querySelector('.about-side');
+  const certBar = document.getElementById('certBar');
+  const certIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ certBar.classList.add('in'); certIo.unobserve(e.target); }
+    });
+  }, { threshold: 0.4 });
+  if(certTile) certIo.observe(certTile);
+
+  // cursor-reactive glow, follows pointer across the whole page
+  const glow = document.getElementById('cursorGlow');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(glow && !reduceMotion){
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = ((e.clientY + window.scrollY) / document.documentElement.scrollHeight) * 100;
+      glow.style.background = `radial-gradient(560px 480px at ${x}% ${y}%, var(--accent-soft) 0%, rgba(227,241,236,0) 70%)`;
+    });
+  }
+</script>
+
+</body>
 </html>
-
-
